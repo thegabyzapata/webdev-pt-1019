@@ -11,3 +11,9 @@
 
 ## Hacer un commit
     git commit -am "<mensaje>"
+
+## Ver que repositorios remotos tengo vinculado
+    git remote -v
+
+## Subir el codigo a github (asegurar que el repo remoto esta vinculado)
+    git push origin master
