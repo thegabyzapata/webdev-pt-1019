@@ -17,3 +17,6 @@
 
 ## Subir el codigo a github (asegurar que el repo remoto esta vinculado)
     git push origin master
+
+## Ver commits en local (pulsa q para salir)
+    git log
