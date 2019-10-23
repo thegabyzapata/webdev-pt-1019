@@ -27,4 +27,10 @@
 ## Cambiar de rama
     git checkout <nombre_rama>
 
-MUY BIEN
+## Merge de una rama en la rama actual
+    git merge <rama_de_la_que_me_traigo_los_cambios>
+
+## Resolver conflictos
+    1 - Resolver los conflictos en VSC, hablarlo
+    2 - `git add <fichero_conflictivo>`  (nota: tantas veces como ficheros conflictivos)
+    3 -  git commit 
