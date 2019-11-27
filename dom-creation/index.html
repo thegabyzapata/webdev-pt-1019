@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./script.js"></script>
+    <style>
+      .container {
+        border: 1px solid green;
+      }
+      #addmouse {
+        cursor: pointer;
+        user-select: none;
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid #336699;
+        color: #336699;
+        text-align: center;
+        transition: 0.3s all;
+      }
+      #addmouse:hover {
+        background: #336699;
+        color: white;
+      }
+      .mouse {
+        padding: 10px;
+        color: red;
+        margin: 5px;
+        border: 1px solid red;
+        text-align: center;
+      }
+      input {
+        font-size: 20px;
+        width: 100%;
+        margin: 0 0 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="addmouse">Add a mouse</h1>
+    <input id="nombre" />
+    <div class="container"></div>
+  </body>
+</html>
