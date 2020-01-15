@@ -1,0 +1,9 @@
+body {
+  background: lightcyan;
+}
+
+.caja {
+  padding: 10px;
+  margin: 10px;
+  background: lightgray;
+}
