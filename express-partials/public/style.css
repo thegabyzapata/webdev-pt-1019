@@ -1,0 +1,16 @@
+.centerflex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+footer {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.card {
+  margin-top: 10px;
+  border-color: red;
+}
