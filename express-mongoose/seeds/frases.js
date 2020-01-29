@@ -1,8 +1,8 @@
-const withDbConnection = require("../withDbConnection");
+const { withDbConnection, dropIfExists } = require("../withDbConnection");
 const FraseTa = require("../models/FraseTa");
 
 withDbConnection(async () => {
-  await FraseTa.collection.drop();
+  await dropIfExists(FraseTa);
   await FraseTa.create([
     { taName: "Diego", taFrase: "Reutiliza las funciones" },
     { taName: "Alejandro", taFrase: "La clave privada no se comparte" },
