@@ -2,8 +2,28 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const { hashPassword, checkHashed } = require("../lib/hashing");
+const { debug, err } = require("@faable/flogg");
+
+// router.get("/register", (req, res, next) => {
+//   Promise.reject("MAL")
+//     .then(() => res.render("auth/register"))
+//     .catch(e => {
+//       next(e);
+//     });
+// });
+
+// router.get("/register", async (req, res, next) => {
+//   try {
+//     await Promise.reject("MAL");
+//     res.render("auth/register");
+//   } catch (e) {
+//     err(e);
+//     next(e);
+//   }
+// });
 
 router.get("/register", (req, res, next) => {
+  debug("Hola");
   res.render("auth/register");
 });
 
@@ -15,10 +35,12 @@ router.post("/register", async (req, res, next) => {
       username,
       password: hashPassword(password)
     });
-    console.log(newUser);
+    debug(newUser);
+    return res.redirect("/auth/register");
   } else {
-    console.log("User already exists with this username");
-    console.log(existingUser);
+    debug("User already exists with this username");
+    debug(existingUser);
+    req.flash("User already exists with this username");
     return res.redirect("/auth/register");
   }
 });
@@ -33,19 +55,24 @@ router.post("/login", async (req, res, next) => {
 
   // this user does not exist
   if (!existingUser) {
-    console.log("user does not exist");
+    debug("user does not exist");
+    req.flash("Bad credentials");
     return res.redirect("/auth/login");
   }
 
   // password missmatch
   if (!checkHashed(password, existingUser.password)) {
-    console.log("password missmatch");
+    debug("password missmatch");
+    req.flash("Bad credentials");
     return res.redirect("/auth/login");
   }
 
   // User login successful
-  console.log(`Welcome ${existingUser.username}`);
+  debug(`Welcome ${existingUser.username}`);
+
+  // CONFIGURA LA SESION DE USUARIO
   req.session.currentUser = existingUser;
+
   return res.redirect("/");
 });
 
