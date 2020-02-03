@@ -45,6 +45,8 @@ app.use(
 );
 app.use(flash());
 
+require("./passport")(app); // This automatically requires index.js in this folder
+
 // Express View engine setup
 
 app.use(
@@ -68,7 +70,12 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 */
 app.use((req, res, next) => {
   console.log(req.session);
-  res.locals.user = req.session.currentUser;
+  res.locals.user = req.user;
+  if (req.user) {
+    // Existe el usuario
+    req.user.visitas += 1;
+    req.user.save();
+  }
   res.locals.errors = req.session.flash.map(e => e.message);
   next();
 });

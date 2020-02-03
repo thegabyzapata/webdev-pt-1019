@@ -12,7 +12,10 @@
       </li>
       {{#if user}}
       <li class="nav-item">
-        <p>Hola {{user.username}}</p>
+        <p>Hola {{user.username}} {{user.visitas}}</p>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/private">Private</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/auth/logout">Logout</a>

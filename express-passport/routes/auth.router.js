@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require("../models/User");
 const { hashPassword, checkHashed } = require("../lib/hashing");
 const { debug, err } = require("@faable/flogg");
+const passport = require("passport");
+const { isLoggedIn, isLoggedOut } = require("../lib/isLoggedMiddleware");
 
 // router.get("/register", (req, res, next) => {
 //   Promise.reject("MAL")
@@ -22,12 +24,12 @@ const { debug, err } = require("@faable/flogg");
 //   }
 // });
 
-router.get("/register", (req, res, next) => {
+router.get("/register", isLoggedOut(), (req, res, next) => {
   debug("Hola");
   res.render("auth/register");
 });
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", isLoggedOut(), async (req, res, next) => {
   const { username, password } = req.body;
   const existingUser = await User.findOne({ username });
   if (!existingUser) {
@@ -36,7 +38,9 @@ router.post("/register", async (req, res, next) => {
       password: hashPassword(password)
     });
     debug(newUser);
-    return res.redirect("/auth/register");
+    req.flash(`Created user ${username}`);
+
+    return res.redirect("/");
   } else {
     debug("User already exists with this username");
     debug(existingUser);
@@ -45,40 +49,19 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.get("/login", (req, res, next) => {
+router.get("/login", isLoggedOut(), (req, res, next) => {
   res.render("auth/login");
 });
 
-router.post("/login", async (req, res, next) => {
-  const { username, password } = req.body;
-  const existingUser = await User.findOne({ username });
+router.post(
+  "/login",
+  isLoggedOut(),
+  passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" })
+);
 
-  // this user does not exist
-  if (!existingUser) {
-    debug("user does not exist");
-    req.flash("Bad credentials");
-    return res.redirect("/auth/login");
-  }
-
-  // password missmatch
-  if (!checkHashed(password, existingUser.password)) {
-    debug("password missmatch");
-    req.flash("Bad credentials");
-    return res.redirect("/auth/login");
-  }
-
-  // User login successful
-  debug(`Welcome ${existingUser.username}`);
-
-  // CONFIGURA LA SESION DE USUARIO
-  req.session.currentUser = existingUser;
-
-  return res.redirect("/");
-});
-
-router.get("/logout", async (req, res, next) => {
-  req.session.currentUser = null;
-  return res.redirect("/");
+router.get("/logout", isLoggedIn(), async (req, res, next) => {
+  req.logout();
+  res.redirect("/");
 });
 
 module.exports = router;
