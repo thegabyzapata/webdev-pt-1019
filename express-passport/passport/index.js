@@ -3,6 +3,7 @@ const User = require("../models/User");
 
 // REQUIRE ALL STRATEGIES HERE!!!
 require("./strategies/local");
+require("./strategies/github");
 
 passport.serializeUser((user, cb) => {
   cb(null, user._id);

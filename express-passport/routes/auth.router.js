@@ -59,6 +59,19 @@ router.post(
   passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" })
 );
 
+router.get("/login/github", isLoggedOut(), passport.authenticate("github"));
+router.get(
+  "/github/callback",
+  isLoggedOut(),
+  passport.authenticate("github", {
+    failureRedirect: "/"
+  }),
+  (req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
+);
+
 router.get("/logout", isLoggedIn(), async (req, res, next) => {
   req.logout();
   res.redirect("/");
