@@ -67,6 +67,9 @@ hbs.registerPartials(__dirname + "/views/partials");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
+// Serve profile pictures from uploads
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 /*
   - Imprime la sesion actual por consola
   - Configura la variable del usuario para todas las vistas

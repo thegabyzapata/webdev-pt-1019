@@ -30,8 +30,8 @@
     {{#if user}}
     <div class="dropdown">
       <div class="navbar-text dropdown-toggle" data-toggle="dropdown">
-        <img src="{{user.picture}}" alt="{{user.username}}" width="20" />
-        Hola {{user.username}} {{user.visitas}}</div>
+        <img src="{{user.profilepic}}" alt="{{user.username}}" width="20" height="20" style="object-fit:cover" />
+        Hola {{user.username}} (visitas: {{user.visitas}})</div>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <a class="dropdown-item" href="/user/settings">Settings</a>
         <a class="dropdown-item" href="/auth/logout">Logout</a>
