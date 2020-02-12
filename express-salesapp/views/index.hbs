@@ -1,0 +1,55 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+<div style="width:600px; height:600px;">
+  <canvas id="myChart"></canvas>
+  <button id="addMore">AddVentas</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById("myChart").getContext("2d");
+
+    const myBarChart = new Chart(ctx, {
+      type: 'bar',
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    const refreshChart = () => {
+      // Get data 
+      axios.get('/sales').then(res => {
+        // Update the chart with obtained data
+        const { datapoints, labels } = res.data
+        myBarChart.data.labels = labels
+        myBarChart.data.datasets = [{
+          label: 'Ventas por usuario',
+          data: datapoints
+        }]
+        myBarChart.update();
+      })
+    }
+
+    // Load data on view load
+    refreshChart();
+
+    // Click en el boton añadir ventas
+    const btnVentas = document.getElementById("addMore");
+    btnVentas.onclick = () => {
+      axios.get("/sales/addsale/15").then(() => {
+        console.log("Venta añadida!!");
+        refreshChart();
+      })
+    }
+  });
+
+
+</script>
