@@ -24,10 +24,10 @@ const Page = () => (
 );
 
 // Redirect to /auth/login if user is not present
-//export const PrivatePage = withProtected(Page);
+export const PrivatePage = withProtected(Page);
 
 // Redirect to / if user is not present
 //export const PrivatePage = withProtected(Page, { redirectTo: "/" });
 
 // Do not redirect, but show protected page
-export const PrivatePage = withProtected(Page, { redirect: false });
+//export const PrivatePage = withProtected(Page, { redirect: false });
