@@ -5,6 +5,7 @@ import { HomePage } from "./pages/Home.page";
 import { LoginPage } from "./pages/Login.page";
 import { SignUpPage } from "./pages/SignUp.page";
 import { PrivatePage } from "./pages/Private.page";
+import { FrasePage } from "./pages/Frase.page";
 import { withAuthentication } from "../lib/withAuthentication";
 
 export const App = withAuthentication(() => (
@@ -15,6 +16,10 @@ export const App = withAuthentication(() => (
         <Route path="/auth/login" component={LoginPage} />
         <Route path="/auth/signup" component={SignUpPage} />
         <Route path="/private" component={PrivatePage} />
+        <Route
+          path="/frase/:id"
+          component={props => <FrasePage taID={props.match.params.id} />}
+        />
       </Switch>
     </Layout>
   </Router>

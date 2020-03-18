@@ -32,9 +32,11 @@ const debug = require("debug")(
 const app = express();
 
 // Cross Domain CORS whitlist
-const whitelist = ["http://localhost:1234"];
+const whitelist = ["http://localhost:3000", "http://localhost:1234"];
 const corsOptions = {
   origin: function(origin, callback) {
+    console.log(`Origin: ${origin}`);
+    if (!origin) return callback(null, true);
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -65,5 +67,24 @@ const index = require("./routes/index");
 app.use("/", index);
 const auth = require("./routes/auth");
 app.use("/auth", auth);
+
+const TaModel = require("./models/TA.model");
+const FraseModel = require("./models/FraseTA.model");
+const { crudGenerator } = require("./routes/crud.model");
+app.use("/ta", crudGenerator(TaModel));
+app.use(
+  "/frase",
+  crudGenerator(FraseModel, {
+    createProtectFields: ["creator"],
+    populateFields: ["ta", "creator"],
+    extraFieldsCreate: req => {
+      if (!req.user)
+        throw new Error("To create a frase you have to login first");
+      return {
+        creator: req.user._id
+      };
+    }
+  })
+);
 
 module.exports = app;
