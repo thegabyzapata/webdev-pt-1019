@@ -1,4 +1,5 @@
 const socketio = require("socket.io");
+const emoji = require("node-emoji");
 
 module.exports = server => {
   const io = socketio(server);
@@ -8,8 +9,9 @@ module.exports = server => {
     console.log("a user connected");
     socket.emit("chatmessage", "Hola desde el servidor");
     socket.on("chatmessage", msg => {
-      console.log(`Received message: "${msg}", replying....`);
-      socket.emit("chatmessage", "Reply:" + msg);
+      let emoified = emoji.emojify(msg);
+      console.log(`Received message: "${emoified}", replying....`);
+      socket.emit("chatmessage", "Reply: " + emoified);
     });
   });
 };
