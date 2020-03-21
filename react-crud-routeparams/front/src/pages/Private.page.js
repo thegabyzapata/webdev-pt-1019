@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import homerFace from "../../public/homer_face.jpg";
 import lisaFace from "../../public/lisa_face.png";
 import { withProtected } from "../../lib/protectRoute.hoc";
+import { Card } from "../components/Card";
 
 let images = [homerFace, lisaFace];
 
@@ -18,8 +19,15 @@ const FaceSelector = () => {
 
 const Page = () => (
   <div>
-    <FaceSelector />
-    <img src="https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg" />
+    <Card>
+      <FaceSelector />
+    </Card>
+    <Card center cardColor="blue">
+      <img
+        width="200"
+        src="https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg"
+      />
+    </Card>
   </div>
 );
 

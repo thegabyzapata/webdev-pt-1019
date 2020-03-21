@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getFrasesFromTa } from "../../lib/tas.api";
+import { Card } from "../components/Card";
 
 export const FrasePage = props => {
   // Note: If the component is directly placed on a route, get the params
@@ -16,8 +17,10 @@ export const FrasePage = props => {
   if (frases.length == 0) return <div>Loading...</div>;
 
   return (
-    <div>
-      <p>Las fastansticas frases de "{frases[0].ta.nombre}"</p>
+    <Card
+      cardColor="tomato"
+      title={`Las fastansticas frases de "${frases[0].ta.nombre}"`}
+    >
       {/* <p>Las fastansticas frases de "{frases[0]?.ta.nombre}"</p> */}
       <ul>
         {frases.map(frase => (
@@ -27,6 +30,6 @@ export const FrasePage = props => {
           </li>
         ))}
       </ul>
-    </div>
+    </Card>
   );
 };
