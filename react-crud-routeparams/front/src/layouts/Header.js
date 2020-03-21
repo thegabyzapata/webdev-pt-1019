@@ -27,6 +27,9 @@ export const Header = () => {
               <Link to="/private">Private Page</Link>
             </li>
             <li>
+              <Link to="/chat">Chat</Link>
+            </li>
+            <li>
               <Link to="/" onClick={handleLogout}>
                 Logout
               </Link>
