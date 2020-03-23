@@ -7,11 +7,14 @@ module.exports = server => {
 
   io.on("connection", socket => {
     console.log("a user connected");
+    // Emit the first message on connect
     socket.emit("chatmessage", "Hola desde el servidor");
+
+    // Register event listener on messages
     socket.on("chatmessage", msg => {
       let emoified = emoji.emojify(msg);
       console.log(`Received message: "${emoified}", replying....`);
-      socket.emit("chatmessage", "Reply: " + emoified);
+      socket.broadcast.emit("chatmessage", "Reply: " + emoified);
     });
   });
 };

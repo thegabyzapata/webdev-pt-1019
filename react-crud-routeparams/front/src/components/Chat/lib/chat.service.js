@@ -36,6 +36,7 @@ export const useChatService = onMessage => {
       const msgobj = { type: "server", text: msg };
       // IMPORTANT: use a function, as setChatMessages can be stale
       setChatMessages(currentState => [...currentState, msgobj]);
+      //setChatMessages([...messages, msgobj]);
       onMessage(msgobj);
     });
 
