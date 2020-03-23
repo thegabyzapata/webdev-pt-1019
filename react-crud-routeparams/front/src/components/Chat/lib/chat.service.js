@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 
 export const ChatService = handleMessage => {
-  console.log("Connectint websocket");
+  console.log("Connecting websocket...");
   const socket = io("http://localhost:3000");
 
   // recive message
