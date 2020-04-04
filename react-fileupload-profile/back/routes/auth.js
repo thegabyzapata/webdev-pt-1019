@@ -2,7 +2,8 @@ const express = require("express");
 const UserModel = require("../models/User.model");
 const passport = require("passport");
 const _ = require("lodash");
-const router = express.Router();
+
+export const router = express.Router();
 
 // REGISTER A USER
 router.post("/signup", async (req, res, next) => {
@@ -11,7 +12,7 @@ router.post("/signup", async (req, res, next) => {
   const newUser = await UserModel.create({ username, password });
 
   // Directly login user
-  req.logIn(newUser, err => {
+  req.logIn(newUser, (err) => {
     res.json(_.pick(req.user, ["username", "_id", "createdAt", "updatedAt"]));
   });
 });
@@ -41,5 +42,3 @@ router.get("/whoami", (req, res, next) => {
   if (req.user) return res.json(req.user);
   else return res.status(401).json({ status: "No user session present" });
 });
-
-module.exports = router;

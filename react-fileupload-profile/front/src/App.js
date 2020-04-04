@@ -7,6 +7,7 @@ import { SignUpPage } from "./pages/SignUp.page";
 import { UserContext, whoami } from "../lib/auth.api";
 import { PrivatePage } from "./pages/Private.page";
 import styled from "styled-components";
+import { ProfilePage } from "./pages/Profile.page";
 
 const Loading = styled.div`
   display: flex;
@@ -32,11 +33,11 @@ export const App = () => {
 
     // Try to get the current logged in user from our backend
     whoami()
-      .then(user => {
+      .then((user) => {
         console.error(`Welcome again user ${user.username}`);
         setUser(user);
       })
-      .catch(e => {
+      .catch((e) => {
         console.error("No user logged in ");
       })
       .finally(() => setLoading(false));
@@ -55,7 +56,7 @@ export const App = () => {
             <Route path="/" exact component={HomePage} />
             <Route path="/auth/login" component={LoginPage} />
             <Route path="/auth/signup" component={SignUpPage} />
-
+            <Route path="/auth/profile" component={ProfilePage} />
             <Route path="/private" component={PrivatePage} />
           </Switch>
         </Layout>

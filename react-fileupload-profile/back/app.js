@@ -13,14 +13,14 @@ const MongoStore = require("connect-mongo")(session);
 mongoose
   .connect(process.env.DBURL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
-  .then(x => {
+  .then((x) => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Error connecting to mongo", err);
   });
 
@@ -34,19 +34,25 @@ const app = express();
 // Cross Domain CORS whitlist
 const whitelist = ["http://localhost:1234"];
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
 };
 
 // Middleware Setup
+
+app.use(express.static(path.join(__dirname, "public")));
+// Serve the profile pictures
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use(cors(corsOptions));
 app.use(logger("dev"));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -55,15 +61,15 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 require("./passport")(app);
 
-app.use(express.static(path.join(__dirname, "public")));
-const index = require("./routes/index");
+import { router as index } from "./routes/index";
+import { router as auth } from "./routes/auth";
+
 app.use("/", index);
-const auth = require("./routes/auth");
 app.use("/auth", auth);
 
 module.exports = app;

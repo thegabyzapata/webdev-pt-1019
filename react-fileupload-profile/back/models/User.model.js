@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema(
   {
     username: String,
-    password: String
+    password: String,
+    profilePic: Object,
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

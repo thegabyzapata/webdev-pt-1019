@@ -24,6 +24,9 @@ export const Header = () => {
         {user && (
           <>
             <li>
+              <Link to="/auth/profile">My Profile</Link>
+            </li>
+            <li>
               <Link to="/private">Private Page</Link>
             </li>
             <li>
