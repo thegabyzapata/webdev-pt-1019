@@ -3,7 +3,7 @@ const UserModel = require("../models/User.model");
 const passport = require("passport");
 const _ = require("lodash");
 
-export const router = express.Router();
+const router = express.Router();
 
 // REGISTER A USER
 router.post("/signup", async (req, res, next) => {
@@ -42,3 +42,5 @@ router.get("/whoami", (req, res, next) => {
   if (req.user) return res.json(req.user);
   else return res.status(401).json({ status: "No user session present" });
 });
+
+module.exports = router;

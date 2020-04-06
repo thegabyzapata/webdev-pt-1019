@@ -66,8 +66,8 @@ app.use(
 );
 require("./passport")(app);
 
-import { router as index } from "./routes/index";
-import { router as auth } from "./routes/auth";
+const index = require("./routes/index");
+const auth = require("./routes/auth");
 
 app.use("/", index);
 app.use("/auth", auth);
