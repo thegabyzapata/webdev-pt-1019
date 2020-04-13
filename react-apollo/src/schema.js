@@ -26,7 +26,10 @@ export const typeDefs = `
 // The resolvers
 export const resolvers = {
   Query: {
-    books: () => books,
+    books: () => {
+      //const books = await Books.find({});
+      return books;
+    },
     todosEnUno: () => {
       return books.map((book) => book.title).join(",");
     },
