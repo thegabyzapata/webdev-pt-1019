@@ -1,0 +1,18 @@
+{
+  "name": "react-apollo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "apollo-server-express": "^2.12.0",
+    "body-parser": "^1.19.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "graphql-tools": "^4.0.7",
+    "nodemon": "^2.0.3"
+  },
+  "scripts": {
+    "start": "nodemon -r esm src/app.js"
+  }
+}
