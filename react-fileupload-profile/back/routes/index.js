@@ -3,11 +3,6 @@ import { upload, uploadCloudinaryAvatar } from "../middleware/uploader";
 const User = require("../models/User.model");
 const router = Router();
 
-/* GET home page */
-router.get("/", (req, res, next) => {
-  res.json({ status: "Welcome" });
-});
-
 router.post(
   "/profilepic",
   uploadCloudinaryAvatar.single("avatar"),
