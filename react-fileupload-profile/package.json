@@ -1,0 +1,14 @@
+{
+  "name": "react-fileupload-profile",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "scripts": {
+    "back": "cd back && yarn run dev",
+    "front": "cd front && yarn run start",
+    "start": "concurrently npm:back npm:front"
+  }
+}

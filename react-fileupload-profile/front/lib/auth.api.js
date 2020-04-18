@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useContext } from "react";
+import { api } from "./api";
 
 export const UserContext = React.createContext();
 
@@ -30,11 +30,6 @@ export const useUserLogout = () => {
     return doLogout();
   };
 };
-
-const api = axios.create({
-  baseURL: process.env.BACKEND_URL,
-  withCredentials: true,
-});
 
 export const doSignup = async (username, password) => {
   // Axios post a ruta /auth/signup en servidor
